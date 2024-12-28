@@ -39,7 +39,7 @@ func toExternal(internal model.UserSetting) *gqlmodel.UserSettings {
 
 func toInternalDateLocale(locale gqlmodel.DateLocale) string {
 	switch locale.String() {
-	case model.DateLocaleAmerican, model.DateLocaleGerman, model.DateLocaleAmerican24h, model.DateLocaleAustralian, model.DateLocaleBritish:
+	case model.DateLocaleAmerican, model.DateLocaleGerman, model.DateLocaleJapanese, model.DateLocaleAmerican24h, model.DateLocaleAustralian, model.DateLocaleBritish:
 		return locale.String()
 	default:
 		return model.DateLocaleAmerican
