@@ -28,7 +28,12 @@ func (r *ResolverForTag) UpdateTag(ctx context.Context, key string, newKey *stri
 	}
 
 	if newKey != nil && *newKey != key {
-		newValue.Key = strings.ToLower(*newKey)
+		if strings.Contains(*newKey, " ") {
+			tx.Rollback()
+			return nil, fmt.Errorf("tag must not contain spaces")
+		}
+		*newKey = strings.ToLower(*newKey)
+		newValue.Key = *newKey
 		timeSpansIdsOfUser := tx.Model(new(model.TimeSpan)).
 			Select("id").
 			Where(&model.TimeSpan{UserID: userID}).
